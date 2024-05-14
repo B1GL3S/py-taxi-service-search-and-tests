@@ -7,14 +7,15 @@ from taxi.models import Manufacturer, Driver, Car
 class ModelTests(TestCase):
     def test_manufacturer_str(self):
         manufacturer = Manufacturer.objects.create(name="test", country="USA")
-        self.assertEquals(str(manufacturer), f"{manufacturer.name} {manufacturer.country}")
-
+        self.assertEquals(
+            str(manufacturer),
+            f"{manufacturer.name} {manufacturer.country}"
+        )
 
     def test_car_str(self):
         manufacturer = Manufacturer.objects.create(name="test", country="USA")
         car = Car.objects.create(model="test", manufacturer=manufacturer)
         self.assertEquals(str(car), car.model)
-
 
     def test_driver_str(self):
         driver = get_user_model().objects.create(

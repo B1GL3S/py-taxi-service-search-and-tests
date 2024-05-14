@@ -50,8 +50,14 @@ class PrivateManufacturerTest(TestCase):
             "country": "Ukraine"
         }
 
-        Manufacturer.objects.create(name=data["first_case"]["name"], country=data["country"])
-        Manufacturer.objects.create(name=data["second_case"]["name"], country=data["country"])
+        Manufacturer.objects.create(
+            name=data["first_case"]["name"],
+            country=data["country"]
+        )
+        Manufacturer.objects.create(
+            name=data["second_case"]["name"],
+            country=data["country"]
+        )
         response = self.client.get(MANUFACTURER_URL, data=data["first_case"])
         self.assertContains(response, data["first_case"]["name"])
         self.assertNotContains(response, data["second_case"]["name"])
@@ -112,7 +118,10 @@ class PrivateCarTest(TestCase):
         self.client.force_login(self.user)
 
     def test_retrieve_cars(self):
-        manufacturer = Manufacturer.objects.create(name="testman", country="USA")
+        manufacturer = Manufacturer.objects.create(
+            name="testman",
+            country="USA"
+        )
         Car.objects.create(model="test", manufacturer=manufacturer)
         res = self.client.get(CAR_URL)
         self.assertEqual(res.status_code, 200)
@@ -125,7 +134,10 @@ class PrivateCarTest(TestCase):
         self.assertTrue(res.context["search_form"])
 
     def test_driver_page_search_form(self):
-        manufacturer = Manufacturer.objects.create(name="testman", country="USA")
+        manufacturer = Manufacturer.objects.create(
+            name="testman",
+            country="USA"
+        )
         data = {
             "first_case": {"model": "test12"},
             "second_case": {"model": "Test34"},
